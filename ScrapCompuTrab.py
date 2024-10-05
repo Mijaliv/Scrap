@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv 
 
-url = "https://www.universia.es/"
+url = "https://ar.computrabajo.com/"
 obtiene = requests.get(url)
 html_doc= obtiene.text
 
