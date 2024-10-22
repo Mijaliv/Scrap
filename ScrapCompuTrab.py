@@ -1,30 +1,84 @@
-from bs4 import BeautifulSoup
 import requests
-import csv 
+from bs4 import BeautifulSoup
+from requests.exceptions import HTTPError, Timeout
 
-url = "https://ar.computrabajo.com/"
-obtiene = requests.get(url)
-html_doc= obtiene.text
+def make_request(url, headers=None):
+    try:
+        response = requests.get(url, headers=headers or {}, timeout=10)
+        response.raise_for_status()  # Verifica si la solicitud fue exitosa (código 200)
+        print(response.status_code)
+        return response.text
+    except HTTPError as error:
+        print(f"HTTP error: {error}")
+    except Timeout:
+        print("Request timed out")
+    except Exception as error:
+        print(f"Error: {error}")
 
-soup = BeautifulSoup(html_doc, "html.parser")
+def scrape_jobs(url, headers):
+    # Hacer la solicitud a la página
+    html_content = make_request(url, headers)
+    if not html_content:
+        return []
 
-careers_table = soup.find("table",{"class":"tabla_resultados"})
-if careers_table:
-    careers= careers_table.find_all("tr")[1:]
-    with open("careers.csv","w",newline="") as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(["Title", "University","Location"])
-        for career in careers:
-            columns = career.find_all("td")
-            title = columns[0].text.strip()
-            university = ""
-            location = ""
-            for column in columns:
-                if "Universidad" in column.text:
-                    university = column.text.strip()
-                elif "Madrid" in column.text:
-                    location = column.text.strip()
-            writer.writerow([title,university,location])
-else:
-    print("No careers table found")
+    # Parsear el contenido HTML con BeautifulSoup
+    soup = BeautifulSoup(html_content, 'lxml')
+    
+    # Extraer los empleos
+    jobs = []
+    # Buscar cada tarjeta de empleo en la página
+    for job_elem in soup.find_all('article', class_='box_offer'):
+        # Extraer el título del empleo
+        title_elem = job_elem.find('a', class_='js-o-link')
+        title = title_elem.text.strip() if title_elem else 'No especificado'
+
+        # Extraer el enlace del empleo
+        link = title_elem['href'] if title_elem else '#'
+        full_link = f"https://ar.computrabajo.com{link}"
+
+        # Extraer la ubicación
+        location_elem = job_elem.find('p', class_='fs16 fc_base mt5')
+        location = location_elem.text.strip() if location_elem else 'Ubicación no especificada'
+
+        # Extraer el nombre de la empresa
+        empresa_elem = job_elem.find('a', class_='fc_base fs16 mr_20')
+        empresa_elem = empresa_elem.text.strip() if empresa_elem else 'Empresa no especificada'
+
+        # Extraer la fecha de publicación
+        date_elem = job_elem.find('p', class_='fs13 fc_aux mt15')
+        date = date_elem.text.strip() if date_elem else 'Fecha no especificada'
+        
+        # Agregar los detalles del empleo a la lista
+        jobs.append({
+            'title': title,
+            'link': full_link,
+            'location': location,
+            'empresa': empresa_elem,
+            'date': date
+        })
+    
+    return jobs
+
+# Definir el User-Agent
+agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41"
+url = "https://ar.computrabajo.com/trabajo-de-desarrollador-net-en-cordoba"
+
+# Scrapeando los empleos
+empleos = scrape_jobs(url, {"User-Agent": agent})
+
+# Mostrar los resultados
+for empleo in empleos:
+    print(f"Título: {empleo['title']}")
+    print(f"Enlace: {empleo['link']}")
+    print(f"Ubicación: {empleo['location']}")
+    print(f"Empresa: {empleo['empresa']}")
+    print(f"Fecha de publicación: {empleo['date']}")
+    print('---')
+
+
+
+
+
+
+
 
