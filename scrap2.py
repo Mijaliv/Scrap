@@ -33,8 +33,21 @@ body, response = make_request(
  
 realBody = body.decode("utf-8")
 #print(body.decode("utf-8"))
-soup = BeautifulSoup(realBody)
+#soup = BeautifulSoup(realBody)
+soup = BeautifulSoup(realBody, features="lxml")
 
+
+
+#print(soup.prettify())  # Para ver el HTML completo que estás recibiendo
+
+
+
+ofertas = soup.find_all('h1', class_="title_page ")
+
+if len(ofertas) > 0:
+    print(ofertas[0].text)
+else:
+    print("No se encontraron ofertas.")
 
 #print(soup.prettify())
 
@@ -44,5 +57,5 @@ soup = BeautifulSoup(realBody)
 
 
 #print(soup.a['title'])#devuelve CompuTrabajo
-print(soup.a['alt'])
+#print(soup.a['alt'])
 #print(soup.a)
