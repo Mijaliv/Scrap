@@ -41,7 +41,7 @@ def scrape_jobs(url, headers):
         location = location_elem.text.strip() if location_elem else 'Ubicación no especificada'
 
         # Extraer el nombre de la empresa
-        empresa_elem = job_elem.find('a', class_='fc_base fs16 mr_20')
+        empresa_elem = job_elem.find('a', class_='fc_base t_ellipsis')
         empresa_elem = empresa_elem.text.strip() if empresa_elem else 'Empresa no especificada'
 
         # Extraer la fecha de publicación
@@ -61,7 +61,7 @@ def scrape_jobs(url, headers):
 
 # Definir el User-Agent
 agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41"
-url = "https://ar.computrabajo.com/trabajo-de-desarrollador-net-en-cordoba"
+url = "https://ar.computrabajo.com/trabajo-de-vendedor"
 
 # Scrapeando los empleos
 empleos = scrape_jobs(url, {"User-Agent": agent})
