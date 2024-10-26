@@ -80,7 +80,7 @@ for empleo in empleos:
     print(f"Ubicación: {empleo['location']}")
     print(f"Empresa: {empleo['empresa']}")
     print(f"Fecha de publicación: {empleo['date']}")
-    print(f"Salario:'{empleo['salario']}")
+    print(f"Salario:{empleo['salario']}")
     print('---')
 
 
