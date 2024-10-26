@@ -52,6 +52,8 @@ def scrape_jobs(url, headers):
         salario_elem = job_elem.find('div',class_='fs13 mt15')
         salario_elem = salario_elem.text.strip() if salario_elem else 'Salario no especificado'
         #IMPLEMENTAR JORNADA
+        jornada_elem = job_elem.find('span',class_='dIB mr10')
+        jornada_elem = jornada_elem.text.strip() if jornada_elem else 'Jornada no especificada'
         #IMPLEMENTAR EVALUACION DE LAS EMPRESAS
         
         # Agregar los detalles del empleo a la lista
@@ -61,7 +63,8 @@ def scrape_jobs(url, headers):
             'location': location,
             'empresa': empresa_elem,
             'date': date,
-            'salario': salario_elem
+            'salario': salario_elem,
+            'jornada': jornada_elem
         })
     
     return jobs
@@ -81,6 +84,7 @@ for empleo in empleos:
     print(f"Empresa: {empleo['empresa']}")
     print(f"Fecha de publicación: {empleo['date']}")
     print(f"Salario:{empleo['salario']}")
+    print(f"Jornada:{empleo['jornada']}")
     print('---')
 
 
