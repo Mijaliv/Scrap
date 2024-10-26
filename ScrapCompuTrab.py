@@ -47,6 +47,12 @@ def scrape_jobs(url, headers):
         # Extraer la fecha de publicación
         date_elem = job_elem.find('p', class_='fs13 fc_aux mt15')
         date = date_elem.text.strip() if date_elem else 'Fecha no especificada'
+
+        #IMPLEMENTAR SALARIO
+        salario_elem = job_elem.find('div',class_='fs13 mt15')
+        salario_elem = salario_elem.text.strip() if salario_elem else 'Salario no especificado'
+        #IMPLEMENTAR JORNADA
+        #IMPLEMENTAR EVALUACION DE LAS EMPRESAS
         
         # Agregar los detalles del empleo a la lista
         jobs.append({
@@ -54,7 +60,8 @@ def scrape_jobs(url, headers):
             'link': full_link,
             'location': location,
             'empresa': empresa_elem,
-            'date': date
+            'date': date,
+            'salario': salario_elem
         })
     
     return jobs
@@ -73,6 +80,7 @@ for empleo in empleos:
     print(f"Ubicación: {empleo['location']}")
     print(f"Empresa: {empleo['empresa']}")
     print(f"Fecha de publicación: {empleo['date']}")
+    print(f"Salario:'{empleo['salario']}")
     print('---')
 
 
