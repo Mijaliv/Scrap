@@ -48,10 +48,10 @@ def scrape_jobs(url, headers):
         date_elem = job_elem.find('p', class_='fs13 fc_aux mt15')
         date = date_elem.text.strip() if date_elem else 'Fecha no especificada'
 
-        #IMPLEMENTAR SALARIO
+        #Extrae el salario
         salario_elem = job_elem.find('div',class_='fs13 mt15')
         salario_elem = salario_elem.text.strip() if salario_elem else 'Salario no especificado'
-        #IMPLEMENTAR JORNADA
+        #IMPLEMENTAR JORNADA Anda pero raro
         jornada_elem = job_elem.find('span',class_='dIB mr10')
         jornada_elem = jornada_elem.text.strip() if jornada_elem else 'Jornada no especificada'
         #IMPLEMENTAR EVALUACION DE LAS EMPRESAS
