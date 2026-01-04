@@ -11,6 +11,7 @@
         <h1>Portal de Empleos</h1>
         <nav>
             <button id="jobs-tab" class="active">Trabajos</button>
+            <button id="analysis-tab">Análisis</button>
             <button id="about-tab">Acerca de</button>
         </nav>
     </header>
@@ -20,6 +21,36 @@
             <h2>Ofertas de Trabajo</h2>
             <div id="jobs-container">
                 <!-- Los trabajos se cargarán aquí dinámicamente -->
+            </div>
+        </section>
+
+        <section id="analysis-section" class="hidden">
+            <h2>Análisis de Datos</h2>
+            <p>Estos análisis se generan dinámicamente a partir de los datos del archivo <code>computrabajo_jobs.json</code>. Ofrecen una visión general del mercado laboral para vendedores basada en la información extraída.</p>
+            
+            <div class="analysis-card">
+                <h3>1. ¿Dónde hay más demanda? (Distribución Geográfica)</h3>
+                <div id="analysis-location"></div>
+            </div>
+            
+            <div class="analysis-card">
+                <h3>2. ¿Cuánto se puede ganar? (Análisis Salarial)</h3>
+                <div id="analysis-salary"></div>
+            </div>
+
+            <div class="analysis-card">
+                <h3>3. ¿Quiénes están contratando más? (Empresas Activas)</h3>
+                <div id="analysis-company"></div>
+            </div>
+
+            <div class="analysis-card">
+                <h3>4. ¿Qué tipo de vendedores se buscan? (Tipos de Roles)</h3>
+                <div id="analysis-role"></div>
+            </div>
+
+            <div class="analysis-card">
+                <h3>5. ¿Qué tan recientes son las ofertas? (Dinamismo del Mercado)</h3>
+                <div id="analysis-recency"></div>
             </div>
         </section>
 

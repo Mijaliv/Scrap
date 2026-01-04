@@ -101,8 +101,8 @@ section {
     text-decoration: underline;
 }
 
-/* Sección "Acerca de" */
-#about-section h3 {
+/* Sección "Acerca de" y "Análisis" */
+#about-section h3, #analysis-section h3 {
     margin-top: 30px;
     border-bottom: 2px solid #007BFF;
     padding-bottom: 5px;
@@ -121,6 +121,37 @@ section {
     padding: 15px;
     border-radius: 5px;
     overflow-x: auto;
+}
+
+.analysis-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.analysis-card h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.analysis-card div p, .analysis-card div ul {
+    font-size: 1rem;
+}
+
+.analysis-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.analysis-card li {
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border-left: 4px solid #007BFF;
 }
 
 /* Footer */
