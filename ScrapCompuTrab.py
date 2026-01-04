@@ -1,19 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError, Timeout
+import json
 
 def make_request(url, headers=None):
     try:
         response = requests.get(url, headers=headers or {}, timeout=10)
         response.raise_for_status()
-        print(response.status_code)
+        print(f"Conexión exitosa a {url} con estado: {response.status_code}")
         return response.text
     except HTTPError as error:
-        print(f"HTTP error: {error}")
+        print(f"Error HTTP: {error}")
     except Timeout:
-        print("Request timed out")
+        print("La petición ha caducado (timeout)")
     except Exception as error:
-        print(f"Error: {error}")
+        print(f"Ocurrió un error: {error}")
+    return None
 
 def scrape_jobs(url, headers):
     html_content = make_request(url, headers)
@@ -23,7 +25,10 @@ def scrape_jobs(url, headers):
     soup = BeautifulSoup(html_content, 'lxml')
     
     jobs = []
-    for job_elem in soup.find_all('article', class_='box_offer'):
+    job_elements = soup.find_all('article', class_='box_offer')
+    print(f"Se encontraron {len(job_elements)} ofertas de trabajo.")
+
+    for job_elem in job_elements:
         title_elem = job_elem.find('a', class_='js-o-link')
         title = title_elem.text.strip() if title_elem else 'No especificado'
 
@@ -45,7 +50,6 @@ def scrape_jobs(url, headers):
         jornada_elem = job_elem.find('span', class_='dIB mr10')
         jornada = jornada_elem.text.strip() if jornada_elem else 'Jornada no especificada'
         
-        # Agregar los detalles del empleo a la lista
         jobs.append({
             'title': title,
             'link': full_link,
@@ -58,20 +62,26 @@ def scrape_jobs(url, headers):
     
     return jobs
 
-# Definir el User-Agent
-agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41"
-url = "https://ar.computrabajo.com/trabajo-de-vendedor?p=2"
+def save_to_json(data, filename):
+    if not data:
+        print("No se encontraron datos para guardar.")
+        return
+        
+    try:
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        print(f"Los datos se han guardado correctamente en {filename}")
+    except IOError as e:
+        print(f"Error al escribir en el archivo {filename}: {e}")
 
-# Scrapeando los empleos
-empleos = scrape_jobs(url, {"User-Agent": agent})
-
-# Mostrar los resultados
-for empleo in empleos:
-    print(f"Título: {empleo['title']}")
-    print(f"Enlace: {empleo['link']}")
-    print(f"Ubicación: {empleo['location']}")
-    print(f"Empresa: {empleo['empresa']}")
-    print(f"Fecha de publicación: {empleo['date']}")
-    print(f"Salario: {empleo['salario']}")
-    print(f"Jornada: {empleo['jornada']}")
-    print('---')
+# --- Ejecución Principal ---
+if __name__ == "__main__":
+    # Definir el User-Agent para simular un navegador
+    agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41"
+    url = "https://ar.computrabajo.com/trabajo-de-vendedor?p=2"
+    
+    print("Iniciando scraping...")
+    empleos = scrape_jobs(url, {"User-Agent": agent})
+    
+    # Guardar los resultados en un archivo JSON
+    save_to_json(empleos, "computrabajo_jobs.json")

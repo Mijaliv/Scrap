@@ -1,0 +1,171 @@
+/* Estilos Generales */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 960px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* Header y Navegación */
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+nav {
+    margin-top: 1rem;
+}
+
+nav button {
+    background: #555;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav button:hover, nav button.active {
+    background-color: #007BFF;
+}
+
+/* Secciones Principales */
+main {
+    padding: 20px;
+}
+
+section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Contenedor de Trabajos */
+#jobs-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.job-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+.job-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.job-card h3 {
+    margin-top: 0;
+    color: #007BFF;
+}
+
+.job-card p {
+    margin: 5px 0;
+}
+
+.job-card a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.job-card a:hover {
+    text-decoration: underline;
+}
+
+/* Sección "Acerca de" */
+#about-section h3 {
+    margin-top: 30px;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+}
+
+#about-section code {
+    background: #eee;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#about-section pre {
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* --- Media Queries para Responsividad --- */
+
+/* Para Tablets */
+@media (min-width: 768px) {
+    #jobs-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Para Desktops */
+@media (min-width: 1024px) {
+    #jobs-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Para Smartphones */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    nav button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    section {
+        padding: 15px;
+    }
+}

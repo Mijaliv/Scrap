@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Empleos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Portal de Empleos</h1>
+        <nav>
+            <button id="jobs-tab" class="active">Trabajos</button>
+            <button id="about-tab">Acerca de</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="jobs-section">
+            <h2>Ofertas de Trabajo</h2>
+            <div id="jobs-container">
+                <!-- Los trabajos se cargarán aquí dinámicamente -->
+            </div>
+        </section>
+
+        <section id="about-section" class="hidden">
+            <h2>Acerca de este Proyecto</h2>
+            <p>
+                La lista de trabajos que ves en este sitio es el resultado de un proceso de <strong>web scraping</strong> realizado en la página de <a href="https://ar.computrabajo.com/" target="_blank">CompuTrabajo</a>. 
+                Se utilizó un script de Python junto con la librería <strong>Beautiful Soup</strong> para extraer la información de las ofertas de empleo.
+            </p>
+            <h3>¿Cómo funciona?</h3>
+            <p>
+                El script de Python, llamado <code>ScrapCompuTrab.py</code>, navega por el sitio de CompuTrabajo, analiza su contenido HTML y extrae los detalles de cada oferta de trabajo, como el título, la ubicación, la empresa y el salario.
+            </p>
+            <h3>Datos en formato JSON</h3>
+            <p>
+                Una vez extraídos, los datos se guardan en un archivo estático llamado <code>computrabajo_jobs.json</code>. Es importante destacar que la información que se muestra en esta página <strong>no se actualiza en tiempo real</strong>. Es una "foto" de los datos en el momento en que se ejecutó el script por última vez.
+            </p>
+            <h3>¿Quieres probarlo en tu propia máquina?</h3>
+            <p>
+                ¡Claro que puedes! Sigue estos pasos para ejecutar el script de scraping tú mismo y generar una lista actualizada de trabajos:
+            </p>
+            <ol>
+                <li><strong>Prepara tu entorno:</strong> Asegúrate de tener Python instalado. Luego, abre una terminal y crea un entorno virtual para mantener las dependencias aisladas:
+                    <pre><code>python -m venv .venv</code></pre>
+                </li>
+                <li><strong>Activa el entorno virtual:</strong>
+                    <ul>
+                        <li>En Windows: <pre><code>.venv\Scripts\activate</code></pre></li>
+                        <li>En macOS y Linux: <pre><code>source .venv/bin/activate</code></pre></li>
+                    </ul>
+                </li>
+                <li><strong>Instala las librerías necesarias:</strong> Todas las dependencias están listadas en el archivo <code>requirements.txt</code>. Instálalas con pip:
+                    <pre><code>pip install -r requirements.txt</code></pre>
+                </li>
+                <li><strong>Ejecuta el script:</strong> Ahora, simplemente ejecuta el script de scraping:
+                    <pre><code>python ScrapCompuTrab.py</code></pre>
+                </li>
+                <li><strong>¡Listo!</strong> Después de unos segundos, verás un archivo <code>computrabajo_jobs.json</code> recién creado (o actualizado) en la carpeta del proyecto.</li>
+            </ol>
+            <p>
+                Esta es una excelente manera de practicar tus habilidades de programación y entender cómo funciona el web scraping en el mundo real.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Mijal Nuñez. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
